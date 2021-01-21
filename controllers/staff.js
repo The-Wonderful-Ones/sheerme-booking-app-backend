@@ -13,7 +13,6 @@ router.get("/", (req, res) => {
     "SELECT id, username, firstname, lastname, headshot_path, email_address FROM staff WHERE company_id = ?",
     [company_id],
     (err, results) => {
-      console.log(results);
       if (err) res.status(500).send(err);
       if (!results.length) {
         res.status(404).send({ message: "There were no staff found" });
@@ -50,7 +49,17 @@ router.put("/:staff_id", (req, res, next) => {
 
 // DELETE staff member (/api/:company_id/staff/:staff_id)
 router.delete("/:staff_id", (req, res, next) => {
-  const company_id = req.company_id;
+  const { staff_id } = req.params;
+  connection.query(
+    "DELETE FROM staff WHERE id = ?",
+    [staff_id],
+    (error, results) => {
+      if (error) res.status(500).send(error);
+      res
+        .status(200)
+        .send({ message: "Staff member has been deleted successfully" });
+    }
+  );
 });
 
 // GET all available start time for a specific staff member to provide a specific service
