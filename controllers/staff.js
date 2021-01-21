@@ -28,10 +28,30 @@ router.get("/", (req, res) => {
 router.post("/", (req, res, next) => {});
 
 // PUT staff member (/api/:company_id/staff/:staff_id)
-router.put("/:staff_id", (req, res, next) => {});
+router.put("/:staff_id", (req, res, next) => {
+  const { staff_id } = req.params;
+  const formData = req.body;
+  connection.query(
+    "UPDATE staff SET ? WHERE id = ?",
+    [formData, staff_id],
+    (error, results) => {
+      if (error) res.status(500).send(error);
+      connection.query(
+        "SELECT id, username, firstname, lastname, headshot_path, email_address FROM staff WHERE id = ?",
+        [staff_id],
+        (err, results) => {
+          if (err) res.status(500).send(err);
+          res.status(200).json(results);
+        }
+      );
+    }
+  );
+});
 
 // DELETE staff member (/api/:company_id/staff/:staff_id)
-router.delete("/:staff_id", (req, res, next) => {});
+router.delete("/:staff_id", (req, res, next) => {
+  const company_id = req.company_id;
+});
 
 // GET all available start time for a specific staff member to provide a specific service
 // on a specific date (having into account existing bookings)
