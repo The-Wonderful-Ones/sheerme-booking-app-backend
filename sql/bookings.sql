@@ -8,12 +8,7 @@ CREATE TABLE IF NOT EXISTS company
 (
     id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(60) NOT NULL,
-    /* path (wrt project root) where the logo img is stored in the filesystem */
     logo_img_path VARCHAR(85) NOT NULL,
-    /* logo img type (SVG, PNG, JPG, TIFF, GIF) */
-    logo_img_type VARCHAR(4) NOT NULL,
-    /* size of the logo image in KB */
-    logo_img_size VARCHAR(3) NOT NULL,
     /* main color in the app as CSS hexadecimal code (rrggbb from #rrggbb) */
     app_base_color VARCHAR(6)
 );
@@ -23,16 +18,12 @@ CREATE TABLE IF NOT EXISTS staff
     id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     firstname VARCHAR(30) NOT NULL,
     lastname VARCHAR(30) NOT NULL,
-    email_address VARCHAR(320) NOT NULL,
+    email_address VARCHAR(320) UNIQUE NOT NULL,
     username VARCHAR(30) UNIQUE,
     /* hashes to be stored are 60 chars long */
-    password VARCHAR(60),
+    password VARCHAR(60) NOT NULL,
     /* path (wrt project root) where the headshot is stored in the filesystem */
     headshot_path VARCHAR(85),
-    /* headshot type (SVG, PNG, JPG, TIFF, GIF) */
-    headshot_type VARCHAR(4),
-    /* size of the headshot in KB */
-    headshot_size VARCHAR(3),
     company_id INT UNSIGNED NOT NULL,   
     CONSTRAINT unique_staff_per_company UNIQUE(firstname, lastname, company_id),  
     FOREIGN KEY (company_id) REFERENCES company(id) ON DELETE CASCADE ON UPDATE CASCADE

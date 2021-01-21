@@ -1,4 +1,4 @@
-const connection = require("./config");
+const connection = require("../config");
 
 LOCK TABLES client WRITE;
 
