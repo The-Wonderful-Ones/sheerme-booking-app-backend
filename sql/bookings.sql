@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS company
     name VARCHAR(60) NOT NULL,
     logo_img_path VARCHAR(85) NOT NULL,
     /* main color in the app as CSS hexadecimal code (rrggbb from #rrggbb) */
-    app_base_color VARCHAR(6)
+    app_base_color VARCHAR(10)
 );
 
 CREATE TABLE IF NOT EXISTS staff
