@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS staff
     email_address VARCHAR(320) UNIQUE NOT NULL,
     username VARCHAR(30) UNIQUE,
     /* hashes to be stored are 60 chars long */
-    password VARCHAR(60) NOT NULL,
+    password VARCHAR(60),
     /* path (wrt project root) where the headshot is stored in the filesystem */
     headshot_path VARCHAR(85),
     company_id INT UNSIGNED NOT NULL,   

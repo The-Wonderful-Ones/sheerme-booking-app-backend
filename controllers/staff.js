@@ -25,23 +25,19 @@ router.get("/", (req, res) => {
 
 // POST a staff member (/api/:company_id/staff)
 router.post("/", (req, res, next) => {
-  const { staff_id } = req.params;
   const formData = req.body;
-  connection.query(
-    "INSERT INTO staff SET ? WHERE id = ?",
-    [formData, staff_id],
-    (error, results) => {
-      if (error) res.status(500).send(error);
-      connection.query(
-        "SELECT id, username, firstname, lastname, headshot_path, email_address FROM staff WHERE id = ?",
-        [staff_id],
-        (err, results) => {
-          if (err) res.status(500).send(err);
-          res.status(200).json(results);
-        }
-      );
-    }
-  );
+  connection.query("INSERT INTO staff SET ?", [formData], (error, results) => {
+    if (error) res.status(500).send(error);
+    const staff_id = results.insertId;
+    connection.query(
+      "SELECT id, username, firstname, lastname, headshot_path, email_address FROM staff WHERE id = ?",
+      [staff_id],
+      (err, results) => {
+        if (err) res.status(500).send(err);
+        res.status(200).json(results);
+      }
+    );
+  });
 });
 
 // PUT staff member (/api/:company_id/staff/:staff_id)
@@ -66,6 +62,7 @@ router.put("/:staff_id", (req, res, next) => {
 });
 
 // DELETE staff member (/api/:company_id/staff/:staff_id)
+// TODO : staff members should not be deleted permanently only the isActive field set to false
 router.delete("/:staff_id", (req, res, next) => {
   const { staff_id } = req.params;
   connection.query(
