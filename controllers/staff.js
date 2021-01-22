@@ -25,7 +25,7 @@ router.get("/", (req, res) => {
 
 // POST a staff member (/api/:company_id/staff)
 router.post("/", (req, res, next) => {
-      const { staff_id } = req.params;
+  const { staff_id } = req.params;
   const formData = req.body;
   connection.query(
     "INSERT INTO staff SET ? WHERE id = ?",
@@ -42,7 +42,6 @@ router.post("/", (req, res, next) => {
       );
     }
   );
-});
 });
 
 // PUT staff member (/api/:company_id/staff/:staff_id)
