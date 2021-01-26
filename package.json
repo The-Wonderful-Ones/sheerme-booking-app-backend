@@ -22,6 +22,7 @@
     "express": "^4.17.1",
     "express-validator": "^6.8.1",
     "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.10.0",
     "multer": "^1.4.2",
     "mysql": "^2.18.1",
     "passport": "^0.4.1",
@@ -31,5 +32,13 @@
   "devDependencies": {
     "concurrently": "^5.3.0",
     "nodemon": "^2.0.6"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/The-Wonderful-Ones/sheerme-booking-app-backend.git"
+  },
+  "bugs": {
+    "url": "https://github.com/The-Wonderful-Ones/sheerme-booking-app-backend/issues"
+  },
+  "homepage": "https://github.com/The-Wonderful-Ones/sheerme-booking-app-backend#readme"
 }
