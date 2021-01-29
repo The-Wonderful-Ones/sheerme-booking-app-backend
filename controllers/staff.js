@@ -10,7 +10,7 @@ const connection = require("../config.js");
 router.get("/", (req, res) => {
   const company_id = req.company_id;
   connection.query(
-    "SELECT id, username, firstname, lastname, headshot_path, email_address FROM staff WHERE company_id = ?",
+    "SELECT id, username, firstname, lastname, headshot_path, email_address FROM staff WHERE company_id = ? AND is_active = true;",
     [company_id],
     (err, results) => {
       if (err) res.status(500).send(err);
@@ -24,6 +24,7 @@ router.get("/", (req, res) => {
 });
 
 // POST a staff member (/api/:company_id/staff)
+// companyId is sent within the body of this request and not needed via the req.params
 router.post("/", (req, res, next) => {
   const formData = req.body;
   connection.query("INSERT INTO staff SET ?", [formData], (error, results) => {
@@ -66,7 +67,7 @@ router.put("/:staff_id", (req, res, next) => {
 router.delete("/:staff_id", (req, res, next) => {
   const { staff_id } = req.params;
   connection.query(
-    "DELETE FROM staff WHERE id = ?",
+    "UPDATE staff SET is_active = false WHERE id = ?",
     [staff_id],
     (error, results) => {
       if (error) res.status(500).send(error);

@@ -24,8 +24,8 @@ CREATE TABLE IF NOT EXISTS staff
     password VARCHAR(60),
     /* path (wrt project root) where the headshot is stored in the filesystem */
     headshot_path VARCHAR(85),
-    company_id INT UNSIGNED NOT NULL,   
-    CONSTRAINT unique_staff_per_company UNIQUE(firstname, lastname, company_id),  
+    is_active BOOL NOT NULL default 1,
+    company_id INT UNSIGNED NOT NULL,  
     FOREIGN KEY (company_id) REFERENCES company(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
@@ -35,9 +35,7 @@ CREATE TABLE IF NOT EXISTS service
     name VARCHAR(100) NOT NULL,
     duration_minutes INT NOT NULL,
     price_euros FLOAT NOT NULL,
-    company_id INT UNSIGNED NOT NULL,
-    /* price depends on those 3 fields only - there cant be same set of values for distinct prices */   
-    CONSTRAINT unique_service_per_company UNIQUE(name, duration_minutes, company_id),  
+    company_id INT UNSIGNED NOT NULL, 
     FOREIGN KEY (company_id) REFERENCES company(id) ON DELETE CASCADE ON UPDATE CASCADE    
 );
 
@@ -62,8 +60,7 @@ CREATE TABLE IF NOT EXISTS client
     email_address VARCHAR(320),
     phone_number VARCHAR(20),
     service_provider INT UNSIGNED NOT NULL,
-    notes VARCHAR(255),  
-    CONSTRAINT unique_client_per_company UNIQUE(firstname, lastname, service_provider),  
+    notes VARCHAR(255), 
     FOREIGN KEY (service_provider) REFERENCES company(id) ON DELETE CASCADE ON UPDATE CASCADE  
 );
 
@@ -75,8 +72,7 @@ CREATE TABLE IF NOT EXISTS booking
     client_id INT UNSIGNED NOT NULL,
     service_id INT UNSIGNED NOT NULL,
     staff_id INT UNSIGNED NOT NULL,
-    notes VARCHAR(255),
-    CONSTRAINT unique_booking_per_company UNIQUE(service_date_time, client_id, service_id, staff_id),      
+    notes VARCHAR(255),     
     FOREIGN KEY (client_id) REFERENCES client(id) ON DELETE CASCADE ON UPDATE CASCADE,   
     FOREIGN KEY (service_id, staff_id) REFERENCES staff_service(service_id, staff_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
