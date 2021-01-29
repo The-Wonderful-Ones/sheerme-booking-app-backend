@@ -15,9 +15,29 @@ router.use(
   passCompanyId,
   require("./staff")
 );
-router.use("/api/company/:company_id/booking", require("./booking"));
-router.use("/api/company/:company_id/client", require("./client"));
-router.use("/api/company/:company_id/service", require("./service"));
-router.use("/api/company/:company_id", require("./company"));
+router.use(
+  "/api/company/:company_id/booking",
+  passport.authenticate("jwt", { session: false }),
+  passCompanyId,
+  require("./booking")
+);
+router.use(
+  "/api/company/:company_id/client",
+  passport.authenticate("jwt", { session: false }),
+  passCompanyId,
+  require("./client")
+);
+router.use(
+  "/api/company/:company_id/service",
+  passport.authenticate("jwt", { session: false }),
+  passCompanyId,
+  require("./service")
+);
+router.use(
+  "/api/company/:company_id",
+  passport.authenticate("jwt", { session: false }),
+  passCompanyId,
+  require("./company")
+);
 
 module.exports = router;
