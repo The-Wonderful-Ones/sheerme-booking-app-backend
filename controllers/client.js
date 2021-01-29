@@ -10,7 +10,7 @@ const connection = require("../config.js");
 router.get("/", (req, res) => {
   const company_id = req.company_id;
   connection.query(
-    "SELECT * FROM client WHERE company_id = ?",
+    "SELECT * FROM client WHERE service_provider = ?",
     [company_id],
     (err, results) => {
       if (err) res.status(500).send(err);
