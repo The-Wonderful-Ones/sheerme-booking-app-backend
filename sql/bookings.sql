@@ -70,9 +70,16 @@ CREATE TABLE IF NOT EXISTS booking
     /* 'YYYY-MM-DD hh:mm:ss' format */
     service_date_time DATETIME NOT NULL,
     client_id INT UNSIGNED NOT NULL,
-    service_id INT UNSIGNED NOT NULL,
     staff_id INT UNSIGNED NOT NULL,
     notes VARCHAR(255),     
-    FOREIGN KEY (client_id) REFERENCES client(id) ON DELETE CASCADE ON UPDATE CASCADE,   
-    FOREIGN KEY (service_id, staff_id) REFERENCES staff_service(service_id, staff_id) ON DELETE CASCADE ON UPDATE CASCADE
+    FOREIGN KEY (client_id) REFERENCES client(id) ON DELETE CASCADE ON UPDATE CASCADE   
+);
+
+CREATE TABLE IF NOT EXISTS booking_service
+(
+    id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    booking_id INT UNSIGNED NOT NULL,
+    service_id INT UNSIGNED NOT NULL,   
+    FOREIGN KEY (booking_id) REFERENCES booking(id) ON DELETE CASCADE ON UPDATE CASCADE,   
+    FOREIGN KEY (service_id) REFERENCES service(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
