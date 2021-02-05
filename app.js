@@ -1,7 +1,7 @@
 // sets all env variables defined in the .env
 require("dotenv").config();
 
-const port = Number(process.env.PORT) || 5000;
+const port = Number(process.env.PORT) || 6000;
 const express = require("express");
 const app = express();
 const morgan = require("morgan");
