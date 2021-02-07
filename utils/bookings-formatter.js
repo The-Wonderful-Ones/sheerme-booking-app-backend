@@ -20,6 +20,7 @@ const bookingsFormatter = (bookings) => {
           {
             booking_service_id,
             service_name,
+            duration_minutes,
           },
         ],
       });
@@ -37,6 +38,7 @@ const bookingsFormatter = (bookings) => {
                 {
                   booking_service_id,
                   service_name,
+                  duration_minutes,
                 },
               ],
             }
