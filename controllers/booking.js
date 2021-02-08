@@ -74,7 +74,7 @@ router.get("/:date", (req, res, next) => {
 router.post("/", (req, res, next) => {
   const { services, ...formData } = req.body;
 
-  connection.query("INSERT INTO BOOKING SET ?", [formData], (err, results) => {
+  connection.query("INSERT INTO booking SET ?", [formData], (err, results) => {
     if (err) res.status(500).send(err);
     const bookingId = results.insertId;
 
