@@ -39,5 +39,10 @@ router.use(
   passCompanyId,
   require("./company")
 );
+router.use(
+  "/api/image-upload",
+  // passport.authenticate("jwt", { session: false }),
+  require("./image-upload")
+);
 
 module.exports = router;
