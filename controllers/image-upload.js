@@ -4,7 +4,6 @@ const AWS = require("aws-sdk");
 const fs = require("fs");
 const FileType = require("file-type");
 const multiparty = require("multiparty");
-const { format } = require("../config");
 
 // configure the keys for accessing AWS
 AWS.config.update({
@@ -36,7 +35,6 @@ const uploadFile = (buffer, name, type) => {
 // Define POST route
 router.post("/", (request, response) => {
   const form = new multiparty.Form();
-  console.log(format);
   form.parse(request, async (error, fields, files) => {
     if (error) {
       console.log(error);
