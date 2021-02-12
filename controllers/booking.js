@@ -12,7 +12,7 @@ router.get("/:date", (req, res, next) => {
   const { date } = req.params;
   const company_id = req.company_id;
   connection.query(
-    `SELECT  staff.id as staff_id, staff.headshot_path as staff_headshot_path, client.firstname as client_first_name, client.lastname as client_last_name, client.phone_number as client_phone_number, service.name as service_name, booking.service_date_time, booking_service.id as booking_service_id, service.duration_minutes, booking.id FROM booking JOIN booking_service ON booking_service.booking_id = booking.id JOIN service ON booking_service.service_id = service.id JOIN staff ON booking.staff_id = staff.id JOIN client ON client.id = booking.client_id WHERE staff.company_id = ? AND booking.service_date_time LIKE ?`,
+    `SELECT  staff.id as staff_id, client.id as client_id, staff.headshot_path as staff_headshot_path, client.firstname as client_first_name, client.lastname as client_last_name, client.phone_number as client_phone_number, service.name as service_name, booking.service_date_time, booking_service.id as booking_service_id, service.duration_minutes, booking.id FROM booking JOIN booking_service ON booking_service.booking_id = booking.id JOIN service ON booking_service.service_id = service.id JOIN staff ON booking.staff_id = staff.id JOIN client ON client.id = booking.client_id WHERE staff.company_id = ? AND booking.service_date_time LIKE ?`,
     [company_id, `${date}%`],
     (err, results) => {
       if (err) res.status(500).send(err);
