@@ -36,7 +36,7 @@ passport.use(
     },
     (email, password, callback) => {
       connection.query(
-        `SELECT * FROM staff WHERE email_address = ?`,
+        `SELECT * FROM staff JOIN company ON company.id = staff.company_id WHERE email_address = ?`,
         email,
         (err, foundUser) => {
           // If generic error return the callback with the error message
